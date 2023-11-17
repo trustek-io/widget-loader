@@ -4,6 +4,7 @@
 
      window.TrustekWidget = {}
      TrustekWidget.create = ({elementId}) => {
+         loadWidget(elementId)
          window.addEventListener ?
              window.addEventListener("load",() => start(elementId),false)
              :
@@ -11,6 +12,7 @@
     }
 
     const start = (elementId) => {
+        loadWidget(elementId)
         if ( document.readyState === "complete" ) {
             console.log('loading widget...');
             loadWidget(elementId)
