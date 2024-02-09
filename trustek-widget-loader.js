@@ -1,27 +1,23 @@
 ;(() => {
   window.TrustekWidget = {}
-  TrustekWidget.create = ({ elementId, userId }) => {
+  TrustekWidget.create = ({ elementId, token }) => {
     window.addEventListener
-      ? window.addEventListener('load', () => start(elementId, userId), false)
+      ? window.addEventListener('load', () => start(elementId, token), false)
       : window.attachEvent &&
-        window.attachEvent('onload', () => start(elementId, userId))
+        window.attachEvent('onload', () => start(elementId, token))
+
+    start(elementId, token)
   }
 
-  const start = (elementId, userId) => {
+  const start = (elementId, token) => {
     if (document.readyState === 'complete') {
       console.log('loading widget...')
-      loadWidget(elementId, userId)
-    } else {
-      document.addEventListener('readystatechange', () => {
-        if (document.readyState === 'complete') {
-          console.log('loading widget...')
-          loadWidget(elementId, userId)
-        }
-      })
+
+      loadWidget(elementId, token)
     }
   }
 
-  const loadWidget = (elementId, userId) => {
+  const loadWidget = (elementId, token) => {
     const widgetContainer = document.getElementById(elementId)
     const widget = document.createElement('div')
 
@@ -37,7 +33,6 @@
     const iframe = document.createElement('iframe')
 
     const iframeStyle = iframe.style
-    // iframeStyle.boxSizing = "borderBox";
     widgetStyle.borderRadius = '22px'
     iframeStyle.position = 'absolute'
     iframeStyle.overflow = 'hidden'
@@ -48,13 +43,12 @@
     iframeStyle.border = 0
     iframeStyle.margin = 0
     iframeStyle.padding = 0
-    // iframeStyle.width = "300px";
 
     widget.appendChild(iframe)
 
     iframe.addEventListener('load', () => (widgetStyle.display = 'block'))
 
-    const widgetUrl = `http://localhost:8085/dashboard?userId=${userId}`
+    const widgetUrl = `https://dynamic-kitsune-15c4a6.netlify.app/login?token=${token}`
 
     iframe.src = widgetUrl
     widgetContainer.appendChild(widget)
