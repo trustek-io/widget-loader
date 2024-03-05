@@ -19,6 +19,9 @@
 
   const loadWidget = (elementId, token) => {
     const widgetContainer = document.getElementById(elementId)
+
+    const shadowRoot = widgetContainer.attachShadow({ mode: 'closed' })
+
     const widget = document.createElement('div')
 
     const widgetStyle = widget.style
@@ -48,10 +51,10 @@
 
     iframe.addEventListener('load', () => (widgetStyle.display = 'block'))
 
-    const widgetUrl = `https://dynamic-kitsune-15c4a6.netlify.app/login?token=${token}`
+    const widgetUrl = `https://trading-widget.trustek.io/login?token=${token}`
 
     iframe.src = widgetUrl
-    widgetContainer.appendChild(widget)
+    shadowRoot.appendChild(widget)
   }
 
   return TrustekWidget
