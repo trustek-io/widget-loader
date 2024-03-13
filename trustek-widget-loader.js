@@ -54,6 +54,7 @@
     const widgetUrl = `https://trading-widget.trustek.io/login?token=${token}`
 
     iframe.src = widgetUrl
+    iframe.allow = 'clipboard-read; clipboard-write'
     shadowRoot.appendChild(widget)
   }
 
