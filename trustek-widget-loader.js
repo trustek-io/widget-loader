@@ -29,7 +29,7 @@
     widgetStyle.boxSizing = 'border-box'
     widgetStyle.overflow = 'hidden'
     widgetStyle.borderRadius = '22px'
-    widgetStyle.width = '300px'
+    widgetStyle.width = '360px'
     widgetStyle.height = '565px'
     widgetStyle.position = 'absolute'
 
