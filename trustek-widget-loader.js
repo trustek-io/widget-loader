@@ -30,7 +30,7 @@
     widgetStyle.overflow = 'hidden'
     widgetStyle.borderRadius = '22px'
     widgetStyle.width = '360px'
-    widgetStyle.height = '565px'
+    widgetStyle.height = '630px'
     widgetStyle.position = 'absolute'
 
     const iframe = document.createElement('iframe')
