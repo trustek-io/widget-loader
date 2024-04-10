@@ -1,25 +1,28 @@
 ;(() => {
   window.TrustekWidget = {}
-  TrustekWidget.create = ({ elementId, token }) => {
+  TrustekWidget.create = ({ elementId, customerId }) => {
     window.addEventListener
-      ? window.addEventListener('load', () => start(elementId, token), false)
+      ? window.addEventListener(
+          'load',
+          () => start(elementId, customerId),
+          false
+        )
       : window.attachEvent &&
-        window.attachEvent('onload', () => start(elementId, token))
+        window.attachEvent('onload', () => start(elementId, customerId))
 
-    start(elementId, token)
+    start(elementId, customerId)
   }
 
-  const start = (elementId, token) => {
+  const start = (elementId, customerId) => {
     if (document.readyState === 'complete') {
       console.log('loading widget...')
 
-      loadWidget(elementId, token)
+      loadWidget(elementId, customerId)
     }
   }
 
-  const loadWidget = (elementId, token) => {
+  const loadWidget = async (elementId, customerId) => {
     const widgetContainer = document.getElementById(elementId)
-
     const shadowRoot = widgetContainer.attachShadow({ mode: 'closed' })
 
     const widget = document.createElement('div')
@@ -50,6 +53,18 @@
     widget.appendChild(iframe)
 
     iframe.addEventListener('load', () => (widgetStyle.display = 'block'))
+
+    const response = await fetch(
+      'https://dev-api.trustek.io/api/widget/customer_token',
+      {
+        method: 'POST',
+        body: JSON.stringify({
+          customer_id: customerId,
+        }),
+      }
+    )
+    const result = await response.json()
+    const token = await result.token
 
     const widgetUrl = `https://trading-widget.trustek.io/login?token=${token}`
 
